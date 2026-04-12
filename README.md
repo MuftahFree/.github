@@ -1,1 +1,416 @@
-# .github
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+    :root {
+        --bg: #050505;
+        --mercury-silver: #e0e0e0;
+        --mercury-dark: #2a2a2a;
+        --conductive-blue: #00f2ff;
+        --glow: rgba(0, 242, 255, 0.4);
+        --liquid-gradient: linear-gradient(145deg, #ffffff 0%, #a1a1a1 45%, #666 55%, #222 100%);
+    }
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        cursor: none;
+    }
+
+    body {
+        background-color: var(--bg);
+        color: var(--mercury-silver);
+        font-family: 'Outfit', sans-serif;
+        overflow-x: hidden;
+        line-height: 1.4;
+    }
+
+    /* Mercury Liquid Filter */
+    .liquid-container {
+        filter: url('#gooey');
+    }
+
+    /* Custom Cursor */
+    #cursor {
+        width: 20px;
+        height: 20px;
+        background: var(--mercury-silver);
+        border-radius: 50%;
+        position: fixed;
+        pointer-events: none;
+        z-index: 9999;
+        mix-blend-mode: difference;
+        transition: transform 0.1s ease;
+        box-shadow: 0 0 20px var(--glow);
+    }
+
+    /* Layout Architecture */
+    .stage {
+        display: grid;
+        grid-template-columns: repeat(12, 1fr);
+        min-height: 100vh;
+        padding: 40px;
+        gap: 20px;
+    }
+
+    /* Background Webbing */
+    .webbing-bg {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        opacity: 0.15;
+        background-image: 
+            radial-gradient(circle at 2px 2px, var(--mercury-silver) 1px, transparent 0);
+        background-size: 40px 40px;
+    }
+
+    .conductive-line {
+        position: fixed;
+        z-index: -1;
+        stroke: var(--conductive-blue);
+        stroke-width: 1;
+        fill: none;
+        stroke-dasharray: 1000;
+        stroke-dashoffset: 1000;
+        animation: flow 8s linear infinite;
+    }
+
+    @keyframes flow {
+        to { stroke-dashoffset: 0; }
+    }
+
+    /* Typography */
+    h1 {
+        font-size: clamp(4rem, 10vw, 8rem);
+        font-weight: 900;
+        line-height: 0.85;
+        text-transform: uppercase;
+        letter-spacing: -0.04em;
+        margin-bottom: 20px;
+        background: var(--liquid-gradient);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        position: relative;
+    }
+
+    .mono {
+        font-family: 'Space Mono', monospace;
+        text-transform: uppercase;
+        font-size: 0.75rem;
+        letter-spacing: 0.2em;
+        color: var(--conductive-blue);
+    }
+
+    /* Profile Section */
+    header {
+        grid-column: 1 / span 8;
+        align-self: end;
+        padding-bottom: 100px;
+    }
+
+    .profile-orb {
+        grid-column: 9 / span 4;
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .mercury-sphere {
+        width: 300px;
+        height: 300px;
+        background: var(--liquid-gradient);
+        border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+        box-shadow: inset -20px -20px 60px rgba(0,0,0,0.8), 
+                    inset 20px 20px 60px rgba(255,255,255,0.2),
+                    0 0 50px var(--glow);
+        animation: morph 10s ease-in-out infinite;
+    }
+
+    @keyframes morph {
+        0%, 100% { border-radius: 40% 60% 70% 30% / 40% 40% 60% 50%; transform: rotate(0deg) scale(1); }
+        33% { border-radius: 70% 30% 50% 50% / 30% 30% 70% 70%; transform: rotate(120deg) scale(1.1); }
+        66% { border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%; transform: rotate(240deg) scale(0.9); }
+    }
+
+    /* Information Grid */
+    .info-grid {
+        grid-column: 1 / -1;
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 1px;
+        background: rgba(255,255,255,0.1);
+        border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .info-block {
+        background: var(--bg);
+        padding: 40px;
+        transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .info-block:hover {
+        background: #111;
+    }
+
+    .info-block::before {
+        content: '';
+        position: absolute;
+        top: 0; left: 0; width: 100%; height: 2px;
+        background: var(--conductive-blue);
+        transform: translateX(-100%);
+        transition: transform 0.6s ease;
+    }
+
+    .info-block:hover::before {
+        transform: translateX(0);
+    }
+
+    .info-block h3 {
+        font-size: 1.5rem;
+        margin: 15px 0;
+        font-weight: 300;
+    }
+
+    .info-block p {
+        color: #888;
+        font-size: 0.9rem;
+        line-height: 1.6;
+    }
+
+    /* Skill Nodes */
+    .skills-web {
+        grid-column: 1 / span 12;
+        padding: 100px 0;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 15px;
+        justify-content: center;
+    }
+
+    .node {
+        padding: 12px 24px;
+        border: 1px solid var(--mercury-dark);
+        border-radius: 100px;
+        background: rgba(255,255,255,0.03);
+        backdrop-filter: blur(10px);
+        font-family: 'Space Mono', monospace;
+        font-size: 0.8rem;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .node::before {
+        content: '';
+        width: 6px;
+        height: 6px;
+        background: var(--conductive-blue);
+        border-radius: 50%;
+        box-shadow: 0 0 10px var(--conductive-blue);
+    }
+
+    .node:hover {
+        border-color: var(--mercury-silver);
+        transform: translateY(-5px);
+        background: var(--mercury-silver);
+        color: var(--bg);
+    }
+
+    /* Floating Nav */
+    nav {
+        position: fixed;
+        top: 40px;
+        right: 40px;
+        z-index: 100;
+        display: flex;
+        gap: 30px;
+    }
+
+    nav a {
+        color: var(--mercury-silver);
+        text-decoration: none;
+        font-size: 0.7rem;
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+        font-family: 'Space Mono', monospace;
+        opacity: 0.6;
+        transition: opacity 0.3s ease;
+    }
+
+    nav a:hover {
+        opacity: 1;
+        color: var(--conductive-blue);
+    }
+
+    /* Liquid Distortion Overlay */
+    .noise {
+        position: fixed;
+        top: 0; left: 0; width: 100%; height: 100%;
+        pointer-events: none;
+        z-index: 9998;
+        opacity: 0.03;
+        background: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    }
+
+    @media (max-width: 900px) {
+        .stage { grid-template-columns: 1fr; }
+        header, .profile-orb, .info-grid { grid-column: 1 / -1; }
+        .info-grid { grid-template-columns: 1fr 1fr; }
+        .profile-orb { padding: 50px 0; order: -1; }
+    }
+</style>
+
+<div id="cursor"></div>
+<div class="noise"></div>
+<div class="webbing-bg"></div>
+
+<svg style="position: absolute; width: 0; height: 0;" width="0" height="0" version="1.1" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+        <filter id="gooey">
+            <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur" />
+            <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -7" result="gooey" />
+            <feComposite in="SourceGraphic" in2="gooey" operator="atop" />
+        </filter>
+    </defs>
+</svg>
+
+<nav>
+    <a href="#work">Neural/Work</a>
+    <a href="#lab">The/Lab</a>
+    <a href="#nexus">Contact/Nexus</a>
+</nav>
+
+<div class="stage">
+    <header>
+        <div class="mono" style="margin-bottom: 20px;">System Status: Highly Active // Node ID: 0xFF1</div>
+        <h1>Architect<br>of Latent<br>Spaces</h1>
+        <p style="max-width: 500px; font-size: 1.1rem; color: #aaa; margin-top: 30px;">
+            Specializing in high-viscosity neural architectures and conductive data interfaces. Building the connective tissue between human intent and machine execution.
+        </p>
+    </header>
+
+    <div class="profile-orb">
+        <div class="mercury-sphere"></div>
+        <svg style="position: absolute; width: 100%; height: 100%;">
+            <circle cx="50%" cy="50%" r="160" fill="none" stroke="rgba(0,242,255,0.2)" stroke-width="1" stroke-dasharray="5 5" />
+        </svg>
+    </div>
+
+    <div class="info-grid">
+        <div class="info-block">
+            <div class="mono">Core.Protocol</div>
+            <h3>LLM Optimization</h3>
+            <p>Developing low-latency quantization methods for edge-deployment of multi-modal transformers.</p>
+        </div>
+        <div class="info-block">
+            <div class="mono">Neural.Mesh</div>
+            <h3>Agentic Swarms</h3>
+            <p>Architecting decentralized autonomous agent networks for complex problem decomposition.</p>
+        </div>
+        <div class="info-block">
+            <div class="mono">Interface.Flow</div>
+            <h3>Latent UI/UX</h3>
+            <p>Synthesizing real-time generative interfaces that adapt to user cognitive load.</p>
+        </div>
+        <div class="info-block">
+            <div class="mono">Synthesis.Lab</div>
+            <h3>Synthetic Data</h3>
+            <p>Generating high-fidelity recursive training sets for specialized domain adaptation.</p>
+        </div>
+    </div>
+
+    <div class="skills-web">
+        <div class="node">PyTorch</div>
+        <div class="node">CUDA</div>
+        <div class="node">Transformers</div>
+        <div class="node">Diffusion Models</div>
+        <div class="node">Next.js 14</div>
+        <div class="node">TypeScript</div>
+        <div class="node">Vector DBs</div>
+        <div class="node">LangChain</div>
+        <div class="node">ONNX Runtime</div>
+        <div class="node">TRT-LLM</div>
+        <div class="node">React Three Fiber</div>
+        <div class="node">Rust</div>
+    </div>
+</div>
+
+<script>
+    const cursor = document.getElementById('cursor');
+    
+    document.addEventListener('mousemove', (e) => {
+        const x = e.clientX;
+        const y = e.clientY;
+        
+        cursor.style.left = x + 'px';
+        cursor.style.top = y + 'px';
+        
+        // Interaction effect on mercury sphere
+        const sphere = document.querySelector('.mercury-sphere');
+        const rect = sphere.getBoundingClientRect();
+        const sphereX = rect.left + rect.width / 2;
+        const sphereY = rect.top + rect.height / 2;
+        
+        const dist = Math.hypot(x - sphereX, y - sphereY);
+        if (dist < 300) {
+            const moveX = (x - sphereX) / 10;
+            const moveY = (y - sphereY) / 10;
+            sphere.style.transform = `translate(${moveX}px, ${moveY}px) scale(${1 + (300-dist)/1500})`;
+        } else {
+            sphere.style.transform = `translate(0, 0) scale(1)`;
+        }
+    });
+
+    document.querySelectorAll('.info-block, .node, a').forEach(el => {
+        el.addEventListener('mouseenter', () => {
+            cursor.style.transform = 'scale(3)';
+            cursor.style.background = 'transparent';
+            cursor.style.border = '1px solid var(--conductive-blue)';
+        });
+        el.addEventListener('mouseleave', () => {
+            cursor.style.transform = 'scale(1)';
+            cursor.style.background = 'var(--mercury-silver)';
+            cursor.style.border = 'none';
+        });
+    });
+
+    // Generate decorative background lines
+    function createLines() {
+        const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+        svg.setAttribute("class", "conductive-line-container");
+        svg.style.position = "fixed";
+        svg.style.top = "0";
+        svg.style.left = "0";
+        svg.style.width = "100%";
+        svg.style.height = "100%";
+        svg.style.zIndex = "-1";
+        svg.style.pointerEvents = "none";
+
+        for(let i=0; i<5; i++) {
+            const line = document.createElementNS("http://www.w3.org/2000/svg", "path");
+            const x1 = Math.random() * window.innerWidth;
+            const y1 = Math.random() * window.innerHeight;
+            const x2 = Math.random() * window.innerWidth;
+            const y2 = Math.random() * window.innerHeight;
+            
+            const d = `M ${x1} ${y1} Q ${Math.random()*window.innerWidth} ${Math.random()*window.innerHeight} ${x2} ${y2}`;
+            
+            line.setAttribute("d", d);
+            line.setAttribute("class", "conductive-line");
+            line.style.animationDelay = `${i * 2}s`;
+            line.style.opacity = "0.2";
+            svg.appendChild(line);
+        }
+        document.body.appendChild(svg);
+    }
+    createLines();
+</script>
