@@ -1,5 +1,5 @@
 ---
-"@initiation4Branding-scope/index.htm": patch
+"@muftahfree/site": minor
 ---
 
-[WIP] Add below as landing page for organization
+Add an organization landing page.
