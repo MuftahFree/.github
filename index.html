@@ -161,8 +161,11 @@
             overflow: hidden;
         }
 
-        .info-block:hover {
+        .info-block:hover,
+        .info-block:focus-visible {
             background: #111;
+            outline: 2px solid var(--conductive-blue);
+            outline-offset: -2px;
         }
 
         .info-block::before {
@@ -174,7 +177,8 @@
             transition: transform 0.6s ease;
         }
 
-        .info-block:hover::before {
+        .info-block:hover::before,
+        .info-block:focus-visible::before {
             transform: translateX(0);
         }
 
@@ -223,11 +227,14 @@
             box-shadow: 0 0 10px var(--conductive-blue);
         }
 
-        .node:hover {
+        .node:hover,
+        .node:focus-visible {
             border-color: var(--mercury-silver);
             transform: translateY(-5px);
             background: var(--mercury-silver);
             color: var(--bg);
+            outline: 2px solid var(--conductive-blue);
+            outline-offset: 2px;
         }
 
         /* Floating Nav */
@@ -251,9 +258,12 @@
             transition: opacity 0.3s ease;
         }
 
-        nav a:hover {
+        nav a:hover,
+        nav a:focus-visible {
             opacity: 1;
             color: var(--conductive-blue);
+            outline: 2px solid var(--conductive-blue);
+            outline-offset: 4px;
         }
 
         /* Liquid Distortion Overlay */
@@ -280,7 +290,7 @@
     <div class="noise"></div>
     <div class="webbing-bg"></div>
 
-    <svg style="position: absolute; width: 0; height: 0;" width="0" height="0" version="1.1" xmlns="http://www.w3.org/2000/svg">
+    <svg aria-hidden="true" style="position: absolute; width: 0; height: 0;" width="0" height="0" version="1.1" xmlns="http://www.w3.org/2000/svg">
         <defs>
             <filter id="gooey">
                 <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur" />
@@ -307,28 +317,28 @@
 
         <div class="profile-orb">
             <div class="mercury-sphere"></div>
-            <svg style="position: absolute; width: 100%; height: 100%;">
+            <svg aria-hidden="true" style="position: absolute; width: 100%; height: 100%;">
                 <circle cx="50%" cy="50%" r="160" fill="none" stroke="rgba(0,242,255,0.2)" stroke-width="1" stroke-dasharray="5 5" />
             </svg>
         </div>
 
         <div class="info-grid">
-            <div class="info-block">
+            <div class="info-block" tabindex="0">
                 <div class="mono">Core.Protocol</div>
                 <h3>LLM Optimization</h3>
                 <p>Developing low-latency quantization methods for edge-deployment of multi-modal transformers.</p>
             </div>
-            <div class="info-block">
+            <div class="info-block" tabindex="0">
                 <div class="mono">Neural.Mesh</div>
                 <h3>Agentic Swarms</h3>
                 <p>Architecting decentralized autonomous agent networks for complex problem decomposition.</p>
             </div>
-            <div class="info-block">
+            <div class="info-block" tabindex="0">
                 <div class="mono">Interface.Flow</div>
                 <h3>Latent UI/UX</h3>
                 <p>Synthesizing real-time generative interfaces that adapt to user cognitive load.</p>
             </div>
-            <div class="info-block">
+            <div class="info-block" tabindex="0">
                 <div class="mono">Synthesis.Lab</div>
                 <h3>Synthetic Data</h3>
                 <p>Generating high-fidelity recursive training sets for specialized domain adaptation.</p>
@@ -336,18 +346,18 @@
         </div>
 
         <div class="skills-web">
-            <div class="node">PyTorch</div>
-            <div class="node">CUDA</div>
-            <div class="node">Transformers</div>
-            <div class="node">Diffusion Models</div>
-            <div class="node">Next.js 14</div>
-            <div class="node">TypeScript</div>
-            <div class="node">Vector DBs</div>
-            <div class="node">LangChain</div>
-            <div class="node">ONNX Runtime</div>
-            <div class="node">TRT-LLM</div>
-            <div class="node">React Three Fiber</div>
-            <div class="node">Rust</div>
+            <div class="node" tabindex="0">PyTorch</div>
+            <div class="node" tabindex="0">CUDA</div>
+            <div class="node" tabindex="0">Transformers</div>
+            <div class="node" tabindex="0">Diffusion Models</div>
+            <div class="node" tabindex="0">Next.js 14</div>
+            <div class="node" tabindex="0">TypeScript</div>
+            <div class="node" tabindex="0">Vector DBs</div>
+            <div class="node" tabindex="0">LangChain</div>
+            <div class="node" tabindex="0">ONNX Runtime</div>
+            <div class="node" tabindex="0">TRT-LLM</div>
+            <div class="node" tabindex="0">React Three Fiber</div>
+            <div class="node" tabindex="0">Rust</div>
         </div>
     </div>
 
