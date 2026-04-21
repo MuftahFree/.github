@@ -353,27 +353,44 @@
 
     <script>
         const cursor = document.getElementById('cursor');
-        
-        document.addEventListener('mousemove', (e) => {
-            const x = e.clientX;
-            const y = e.clientY;
-            
-            cursor.style.left = x + 'px';
-            cursor.style.top = y + 'px';
-            
-            // Interaction effect on mercury sphere
-            const sphere = document.querySelector('.mercury-sphere');
+        const sphere = document.querySelector('.mercury-sphere');
+        let sphereX, sphereY;
+
+        function updateSphereBounds() {
             const rect = sphere.getBoundingClientRect();
-            const sphereX = rect.left + rect.width / 2;
-            const sphereY = rect.top + rect.height / 2;
-            
-            const dist = Math.hypot(x - sphereX, y - sphereY);
-            if (dist < 300) {
-                const moveX = (x - sphereX) / 10;
-                const moveY = (y - sphereY) / 10;
-                sphere.style.transform = `translate(${moveX}px, ${moveY}px) scale(${1 + (300-dist)/1500})`;
-            } else {
-                sphere.style.transform = `translate(0, 0) scale(1)`;
+            sphereX = rect.left + rect.width / 2;
+            sphereY = rect.top + rect.height / 2;
+        }
+
+        window.addEventListener('resize', updateSphereBounds);
+        window.addEventListener('scroll', updateSphereBounds);
+        updateSphereBounds();
+        
+        let mouseX = 0;
+        let mouseY = 0;
+        let ticking = false;
+
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+
+            if (!ticking) {
+                window.requestAnimationFrame(() => {
+                    cursor.style.left = mouseX + 'px';
+                    cursor.style.top = mouseY + 'px';
+
+                    // Interaction effect on mercury sphere
+                    const dist = Math.hypot(mouseX - sphereX, mouseY - sphereY);
+                    if (dist < 300) {
+                        const moveX = (mouseX - sphereX) / 10;
+                        const moveY = (mouseY - sphereY) / 10;
+                        sphere.style.transform = `translate(${moveX}px, ${moveY}px) scale(${1 + (300-dist)/1500})`;
+                    } else {
+                        sphere.style.transform = `translate(0, 0) scale(1)`;
+                    }
+                    ticking = false;
+                });
+                ticking = true;
             }
         });
 
