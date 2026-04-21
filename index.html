@@ -353,6 +353,7 @@
 
     <script>
         const cursor = document.getElementById('cursor');
+        const sphere = document.querySelector('.mercury-sphere');
         
         document.addEventListener('mousemove', (e) => {
             const x = e.clientX;
@@ -362,7 +363,6 @@
             cursor.style.top = y + 'px';
             
             // Interaction effect on mercury sphere
-            const sphere = document.querySelector('.mercury-sphere');
             const rect = sphere.getBoundingClientRect();
             const sphereX = rect.left + rect.width / 2;
             const sphereY = rect.top + rect.height / 2;
