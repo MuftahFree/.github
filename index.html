@@ -390,6 +390,12 @@
             });
         });
 
+        function secureRandom() {
+            const array = new Uint32Array(1);
+            window.crypto.getRandomValues(array);
+            return array[0] / (0xffffffff + 1);
+        }
+
         // Generate decorative background lines
         function createLines() {
             const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
@@ -404,12 +410,12 @@
 
             for(let i=0; i<5; i++) {
                 const line = document.createElementNS("http://www.w3.org/2000/svg", "path");
-                const x1 = Math.random() * window.innerWidth;
-                const y1 = Math.random() * window.innerHeight;
-                const x2 = Math.random() * window.innerWidth;
-                const y2 = Math.random() * window.innerHeight;
+                const x1 = secureRandom() * window.innerWidth;
+                const y1 = secureRandom() * window.innerHeight;
+                const x2 = secureRandom() * window.innerWidth;
+                const y2 = secureRandom() * window.innerHeight;
                 
-                const d = `M ${x1} ${y1} Q ${Math.random()*window.innerWidth} ${Math.random()*window.innerHeight} ${x2} ${y2}`;
+                const d = `M ${x1} ${y1} Q ${secureRandom()*window.innerWidth} ${secureRandom()*window.innerHeight} ${x2} ${y2}`;
                 
                 line.setAttribute("d", d);
                 line.setAttribute("class", "conductive-line");
