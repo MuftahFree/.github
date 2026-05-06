@@ -161,8 +161,11 @@
             overflow: hidden;
         }
 
-        .info-block:hover {
+        .info-block:hover,
+        .info-block:focus-visible {
             background: #111;
+            outline: 2px solid var(--conductive-blue);
+            outline-offset: -2px;
         }
 
         .info-block::before {
@@ -174,7 +177,8 @@
             transition: transform 0.6s ease;
         }
 
-        .info-block:hover::before {
+        .info-block:hover::before,
+        .info-block:focus-visible::before {
             transform: translateX(0);
         }
 
@@ -223,11 +227,14 @@
             box-shadow: 0 0 10px var(--conductive-blue);
         }
 
-        .node:hover {
+        .node:hover,
+        .node:focus-visible {
             border-color: var(--mercury-silver);
             transform: translateY(-5px);
             background: var(--mercury-silver);
             color: var(--bg);
+            outline: 2px solid var(--conductive-blue);
+            outline-offset: 2px;
         }
 
         /* Floating Nav */
@@ -251,9 +258,12 @@
             transition: opacity 0.3s ease;
         }
 
-        nav a:hover {
+        nav a:hover,
+        nav a:focus-visible {
             opacity: 1;
             color: var(--conductive-blue);
+            outline: 2px solid var(--conductive-blue);
+            outline-offset: 4px;
         }
 
         /* Liquid Distortion Overlay */
@@ -280,7 +290,7 @@
     <div class="noise"></div>
     <div class="webbing-bg"></div>
 
-    <svg style="position: absolute; width: 0; height: 0;" width="0" height="0" version="1.1" xmlns="http://www.w3.org/2000/svg">
+    <svg aria-hidden="true" style="position: absolute; width: 0; height: 0;" width="0" height="0" version="1.1" xmlns="http://www.w3.org/2000/svg">
         <defs>
             <filter id="gooey">
                 <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur" />
@@ -307,28 +317,28 @@
 
         <div class="profile-orb">
             <div class="mercury-sphere"></div>
-            <svg style="position: absolute; width: 100%; height: 100%;">
+            <svg aria-hidden="true" style="position: absolute; width: 100%; height: 100%;">
                 <circle cx="50%" cy="50%" r="160" fill="none" stroke="rgba(0,242,255,0.2)" stroke-width="1" stroke-dasharray="5 5" />
             </svg>
         </div>
 
         <div class="info-grid">
-            <div class="info-block">
+            <div class="info-block" tabindex="0">
                 <div class="mono">Core.Protocol</div>
                 <h3>LLM Optimization</h3>
                 <p>Developing low-latency quantization methods for edge-deployment of multi-modal transformers.</p>
             </div>
-            <div class="info-block">
+            <div class="info-block" tabindex="0">
                 <div class="mono">Neural.Mesh</div>
                 <h3>Agentic Swarms</h3>
                 <p>Architecting decentralized autonomous agent networks for complex problem decomposition.</p>
             </div>
-            <div class="info-block">
+            <div class="info-block" tabindex="0">
                 <div class="mono">Interface.Flow</div>
                 <h3>Latent UI/UX</h3>
                 <p>Synthesizing real-time generative interfaces that adapt to user cognitive load.</p>
             </div>
-            <div class="info-block">
+            <div class="info-block" tabindex="0">
                 <div class="mono">Synthesis.Lab</div>
                 <h3>Synthetic Data</h3>
                 <p>Generating high-fidelity recursive training sets for specialized domain adaptation.</p>
@@ -336,44 +346,61 @@
         </div>
 
         <div class="skills-web">
-            <div class="node">PyTorch</div>
-            <div class="node">CUDA</div>
-            <div class="node">Transformers</div>
-            <div class="node">Diffusion Models</div>
-            <div class="node">Next.js 14</div>
-            <div class="node">TypeScript</div>
-            <div class="node">Vector DBs</div>
-            <div class="node">LangChain</div>
-            <div class="node">ONNX Runtime</div>
-            <div class="node">TRT-LLM</div>
-            <div class="node">React Three Fiber</div>
-            <div class="node">Rust</div>
+            <div class="node" tabindex="0">PyTorch</div>
+            <div class="node" tabindex="0">CUDA</div>
+            <div class="node" tabindex="0">Transformers</div>
+            <div class="node" tabindex="0">Diffusion Models</div>
+            <div class="node" tabindex="0">Next.js 14</div>
+            <div class="node" tabindex="0">TypeScript</div>
+            <div class="node" tabindex="0">Vector DBs</div>
+            <div class="node" tabindex="0">LangChain</div>
+            <div class="node" tabindex="0">ONNX Runtime</div>
+            <div class="node" tabindex="0">TRT-LLM</div>
+            <div class="node" tabindex="0">React Three Fiber</div>
+            <div class="node" tabindex="0">Rust</div>
         </div>
     </div>
 
     <script>
         const cursor = document.getElementById('cursor');
         const sphere = document.querySelector('.mercury-sphere');
-        
-        document.addEventListener('mousemove', (e) => {
-            const x = e.clientX;
-            const y = e.clientY;
-            
-            cursor.style.left = x + 'px';
-            cursor.style.top = y + 'px';
-            
-            // Interaction effect on mercury sphere
+        let sphereX, sphereY;
+
+        function updateSphereBounds() {
             const rect = sphere.getBoundingClientRect();
-            const sphereX = rect.left + rect.width / 2;
-            const sphereY = rect.top + rect.height / 2;
-            
-            const dist = Math.hypot(x - sphereX, y - sphereY);
-            if (dist < 300) {
-                const moveX = (x - sphereX) / 10;
-                const moveY = (y - sphereY) / 10;
-                sphere.style.transform = `translate(${moveX}px, ${moveY}px) scale(${1 + (300-dist)/1500})`;
-            } else {
-                sphere.style.transform = `translate(0, 0) scale(1)`;
+            sphereX = rect.left + rect.width / 2;
+            sphereY = rect.top + rect.height / 2;
+        }
+
+        window.addEventListener('resize', updateSphereBounds);
+        window.addEventListener('scroll', updateSphereBounds);
+        updateSphereBounds();
+        
+        let mouseX = 0;
+        let mouseY = 0;
+        let ticking = false;
+
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+
+            if (!ticking) {
+                window.requestAnimationFrame(() => {
+                    cursor.style.left = mouseX + 'px';
+                    cursor.style.top = mouseY + 'px';
+
+                    // Interaction effect on mercury sphere
+                    const dist = Math.hypot(mouseX - sphereX, mouseY - sphereY);
+                    if (dist < 300) {
+                        const moveX = (mouseX - sphereX) / 10;
+                        const moveY = (mouseY - sphereY) / 10;
+                        sphere.style.transform = `translate(${moveX}px, ${moveY}px) scale(${1 + (300-dist)/1500})`;
+                    } else {
+                        sphere.style.transform = `translate(0, 0) scale(1)`;
+                    }
+                    ticking = false;
+                });
+                ticking = true;
             }
         });
 
@@ -390,6 +417,12 @@
             });
         });
 
+        function secureRandom() {
+            const array = new Uint32Array(1);
+            window.crypto.getRandomValues(array);
+            return array[0] / (0xffffffff + 1);
+        }
+
         // Generate decorative background lines
         function createLines() {
             const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
@@ -404,12 +437,12 @@
 
             for(let i=0; i<5; i++) {
                 const line = document.createElementNS("http://www.w3.org/2000/svg", "path");
-                const x1 = Math.random() * window.innerWidth;
-                const y1 = Math.random() * window.innerHeight;
-                const x2 = Math.random() * window.innerWidth;
-                const y2 = Math.random() * window.innerHeight;
+                const x1 = secureRandom() * window.innerWidth;
+                const y1 = secureRandom() * window.innerHeight;
+                const x2 = secureRandom() * window.innerWidth;
+                const y2 = secureRandom() * window.innerHeight;
                 
-                const d = `M ${x1} ${y1} Q ${Math.random()*window.innerWidth} ${Math.random()*window.innerHeight} ${x2} ${y2}`;
+                const d = `M ${x1} ${y1} Q ${secureRandom()*window.innerWidth} ${secureRandom()*window.innerHeight} ${x2} ${y2}`;
                 
                 line.setAttribute("d", d);
                 line.setAttribute("class", "conductive-line");
